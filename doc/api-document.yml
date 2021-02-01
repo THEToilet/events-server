@@ -1,0 +1,149 @@
+openapi: 3.0.0
+info:
+  title: api-docment
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /v1/auth/login:
+    parameters: []
+    get:
+      summary: login
+      tags: []
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Get User Alice Smith:
+                  value:
+                    id: 142
+                    firstName: Alice
+                    lastName: Smith
+                    email: alice.smith@gmail.com
+                    dateOfBirth: '1997-10-31'
+                    emailVerified: true
+                    signUpDate: '2019-08-24'
+        '404':
+          description: User Not Found
+      operationId: get-users-userId
+      description: Retrieve the information of the user with the matching user ID.
+  v1/auth/entry:
+    post:
+      summary: entry
+      operationId: post-user
+      responses:
+        '200':
+          description: User Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12
+                    firstName: Bob
+                    lastName: Fellow
+                    email: bob.fellow@gmail.com
+                    dateOfBirth: '1996-08-24'
+                    emailVerified: false
+                    createDate: '2020-11-18'
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Email Already Taken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                dateOfBirth:
+                  type: string
+                  format: date
+              required:
+                - firstName
+                - lastName
+                - email
+                - dateOfBirth
+            examples:
+              Create User Bob Fellow:
+                value:
+                  firstName: Bob
+                  lastName: Fellow
+                  email: bob.fellow@gmail.com
+                  dateOfBirth: '1996-08-24'
+        description: Post the necessary fields for the API to create a new user.
+      description: Create a new user.
+    parameters: []
+  /v1/auth/logout:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-v1-auth-logout
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      x-examples:
+        Alice Smith:
+          id: 142
+          firstName: Alice
+          lastName: Smith
+          email: alice.smith@gmail.com
+          dateOfBirth: '1997-10-31'
+          emailVerified: true
+          signUpDate: '2019-08-24'
+      properties:
+        userId:
+          type: string
+          description: Unique identifier for the given user.
+        mail:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - userId
+        - mail
+        - password
+    Event:
+      title: Event
+      type: object
+      properties:
+        eventId:
+          type: string
+        deadline:
+          type: string
+          format: date-time
+        postedUserId:
+          type: string
+        eventURL:
+          type: string
+        description:
+          type: string
+        tags:
+          type: object
+          properties:
+            tagName:
+              type: string
+            tagId:
+              type: string
+      required:
+        - eventId
+        - deadline
+        - postedUserId
+        - description
