@@ -8,6 +8,7 @@ import (
 
 func Server(addr string) {
 	http.HandleFunc("auth/login", get(handler.HandleAuthLogin()))
+	http.HandleFunc("auth/login", get(handler.HandleCallback()))
 	err := http.ListenAndServe(addr, nil)
 	if err != nil {
 		log.Fatalf("Listen and serve failed. %+v", err)
