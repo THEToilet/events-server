@@ -2,38 +2,58 @@ openapi: 3.0.0
 info:
   title: api-docment
   version: '1.0'
+  license:
+    name: Apach 2.0
+    url: 'https://github.com/THEToilet/evets-server/LISENCE'
+  description: イベント管理サービスのAPI
+  contact:
+    name: THEToilet
+  termsOfService: 'https://github.com/THEToilet'
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3000/api/v1'
+    description: local
 paths:
-  /v1/auth/login:
+  /users/login:
     parameters: []
-    get:
-      summary: login
-      tags: []
+    post:
+      summary: ログイン
+      operationId: postusers-login
       responses:
         '200':
-          description: User Found
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                type: object
+                properties:
+                  sessionId:
+                    type: string
+                required:
+                  - sessionId
               examples:
-                Get User Alice Smith:
+                example-1:
                   value:
-                    id: 142
-                    firstName: Alice
-                    lastName: Smith
-                    email: alice.smith@gmail.com
-                    dateOfBirth: '1997-10-31'
-                    emailVerified: true
-                    signUpDate: '2019-08-24'
-        '404':
-          description: User Not Found
-      operationId: get-users-userId
-      description: Retrieve the information of the user with the matching user ID.
-  v1/auth/entry:
+                    sessionId: string
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+        - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            examples:
+              example-1:
+                value:
+                  userId: string
+                  mail: user@example.com
+      description: ユーザがログインします。
+  /users/entry:
     post:
-      summary: entry
+      summary: ユーザ登録
       operationId: post-user
       responses:
         '200':
@@ -43,55 +63,271 @@ paths:
               schema:
                 $ref: '#/components/schemas/User'
               examples:
-                New User Bob Fellow:
+                example-1:
                   value:
-                    id: 12
-                    firstName: Bob
-                    lastName: Fellow
-                    email: bob.fellow@gmail.com
-                    dateOfBirth: '1996-08-24'
-                    emailVerified: false
-                    createDate: '2020-11-18'
+                    userId: string
+                    mail: user@example.com
         '400':
           description: Missing Required Information
-        '409':
-          description: Email Already Taken
+        '500':
+          description: Internal Server Error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+            examples: {}
+        description: Post the necessary fields for the API to create a new user.
+      description: 新たなユーザを登録します。
+      tags:
+        - users
+    parameters: []
+  /users/logout:
+    get:
+      summary: ログアウト
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      operationId: get-v1-auth-logout
+      tags:
+        - users
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: sessionId
+          description: セッションUUID
+      description: ログアウトします。
+    parameters: []
+  '/events/{eventId}':
+    parameters:
+      - schema:
+          type: string
+        name: eventId
+        in: path
+        required: true
+    put:
+      summary: イベントの詳細変更
+      operationId: put-events-eventId
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+        - event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+            examples:
+              example-1:
+                value:
+                  eventId: string
+                  deadline: '2019-08-24T14:15:22Z'
+                  postedUserId: string
+                  eventURL: string
+                  description: string
+                  tags:
+                    - tagId: string
+                      tagName: string
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: sessionId
+          description: セッションUUID
+      description: 登録したイベントの内容を変更します。
+    delete:
+      summary: イベントの詳細削除
+      operationId: delete-events-eventId
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                firstName:
+                eventId:
                   type: string
-                lastName:
-                  type: string
-                email:
-                  type: string
-                dateOfBirth:
-                  type: string
-                  format: date
-              required:
-                - firstName
-                - lastName
-                - email
-                - dateOfBirth
             examples:
-              Create User Bob Fellow:
+              example-1:
                 value:
-                  firstName: Bob
-                  lastName: Fellow
-                  email: bob.fellow@gmail.com
-                  dateOfBirth: '1996-08-24'
-        description: Post the necessary fields for the API to create a new user.
-      description: Create a new user.
-    parameters: []
-  /v1/auth/logout:
+                  eventId: string
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: sessionId
+          description: 'セッションUUID '
+      tags:
+        - event
+      description: 登録したイベントを削除します。
+  /events:
     get:
-      summary: Your GET endpoint
-      tags: []
-      responses: {}
-      operationId: get-v1-auth-logout
+      summary: イベント一覧取得
+      tags:
+        - event
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+              examples:
+                example-1:
+                  value:
+                    - eventId: string
+                      deadline: '2019-08-24T14:15:22Z'
+                      postedUserId: string
+                      eventURL: string
+                      description: string
+                      tags:
+                        - tagId: string
+                          tagName: string
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      operationId: get-events
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: sessionId
+          description: セッションUUID
+      description: 登録されているイベントの一覧を取得します。
+    post:
+      summary: イベント追加
+      operationId: post-events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: sessionId
+          description: セッションUUID
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+        - event
+      description: 新たなイベントを登録します。
+  /event/tags:
+    get:
+      summary: tag一覧取得
+      tags:
+        - tag
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+              examples:
+                example-1:
+                  value:
+                    - tagId: string
+                      tagName: string
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      operationId: get-event-tags
+      description: 登録されているタグ一覧を取得します。
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: sessionId
+          description: セッションUUID
+    post:
+      summary: タグ追加
+      operationId: post-event-tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+            examples:
+              example-1:
+                value:
+                  tagId: string
+                  tagName: string
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: sessionId
+          description: セッションUUID
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+        '500':
+          description: Internal Server Error
+      tags:
+        - tag
+      description: 新たなタグを追加します。
+  /users:
+    get:
+      summary: ユーザ情報取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                example-1:
+                  value:
+                    userId: string
+                    mail: user@example.com
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      operationId: get-users
+      description: 登録されているユーザ情報を取得します。
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: sessionId
+          description: セッションUUID
 components:
   schemas:
     User:
@@ -99,14 +335,9 @@ components:
       type: object
       description: ''
       x-examples:
-        Alice Smith:
-          id: 142
-          firstName: Alice
-          lastName: Smith
-          email: alice.smith@gmail.com
-          dateOfBirth: '1997-10-31'
-          emailVerified: true
-          signUpDate: '2019-08-24'
+        example-1:
+          userId: 834e-45df-124sfdf
+          mail: user-111@example.com
       properties:
         userId:
           type: string
@@ -114,15 +345,23 @@ components:
         mail:
           type: string
           format: email
-        password:
-          type: string
       required:
         - userId
         - mail
-        - password
     Event:
       title: Event
       type: object
+      x-examples:
+        example-1:
+          eventId: 12df-325d-52356df3
+          deadline: '2019-08-24T14:15:22Z'
+          postedUserId: Unko
+          eventURL: 'https://zoom.us/'
+          description: '## 内容'
+          tags:
+            tagName: 部会
+            tagId: 23ds-dfad-34234-df3325
+      description: イベントの入れ物
       properties:
         eventId:
           type: string
@@ -136,14 +375,26 @@ components:
         description:
           type: string
         tags:
-          type: object
-          properties:
-            tagName:
-              type: string
-            tagId:
-              type: string
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
       required:
         - eventId
         - deadline
         - postedUserId
         - description
+    Tag:
+      title: Tag
+      type: object
+      properties:
+        tagId:
+          type: string
+        tagName:
+          type: string
+      required:
+        - tagId
+        - tagName
+tags:
+  - name: event
+  - name: users
+  - name: tag
