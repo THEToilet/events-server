@@ -25,6 +25,16 @@ func post(apiFunc http.HandlerFunc) http.HandlerFunc {
 	return httpMethod(apiFunc, http.MethodPost)
 }
 
+// post PUTリクエストを処理する
+func put(apiFunc http.HandlerFunc) http.HandlerFunc {
+	return httpMethod(apiFunc, http.MethodPut)
+}
+
+// post DELETEリクエストを処理する
+func delete(apiFunc http.HandlerFunc) http.HandlerFunc {
+	return httpMethod(apiFunc, http.MethodDelete)
+}
+
 // httpMethod 指定したHTTPメソッドでAPIの処理を実行する
 func httpMethod(apiFunc http.HandlerFunc, method string) http.HandlerFunc {
 	return func(writer http.ResponseWriter, request *http.Request) {
