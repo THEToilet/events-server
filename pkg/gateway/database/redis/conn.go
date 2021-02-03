@@ -1,4 +1,4 @@
-package database
+package redi
 
 import (
 	"github.com/gomodule/redigo/redis"

@@ -11,6 +11,10 @@ func Server(addr string) {
 	//conn := database.Connect()
 	http.HandleFunc("auth/login", get(handler.HandleAuthLogin()))
 	http.HandleFunc("auth/login", get(handler.HandleCallback()))
+	http.HandleFunc("events/:eventId", put(handler.HandleCallback()))
+	http.HandleFunc("events/:eventId", delete(handler.HandleCallback()))
+	http.HandleFunc("events", get(handler.HandleCallback()))
+	http.HandleFunc("events", post(handler.HandleCallback()))
 	err := http.ListenAndServe(addr, nil)
 	if err != nil {
 		log.Fatalf("Listen and serve failed. %+v", err)
