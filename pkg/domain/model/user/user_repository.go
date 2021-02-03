@@ -1,8 +1,9 @@
 package user
 
 type userRepository interface {
-	fetch(userId string) (err error)
-	create() (err error)
+	find(userId string) (err error)
+	findAll() (err error)
+	save() (err error)
 	update() (err error)
 	delete() (err error)
 }
