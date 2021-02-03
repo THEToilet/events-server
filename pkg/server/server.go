@@ -2,11 +2,13 @@ package main
 
 import (
 	"../server/handler"
+	"../gateway/database"
 	"log"
 	"net/http"
 )
 
 func Server(addr string) {
+	//conn := database.Connect()
 	http.HandleFunc("auth/login", get(handler.HandleAuthLogin()))
 	http.HandleFunc("auth/login", get(handler.HandleCallback()))
 	err := http.ListenAndServe(addr, nil)
