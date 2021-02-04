@@ -1,8 +1,8 @@
 package repository
 
 import (
+	"github.com/THEToilet/events-server/pkg/domain/model"
 	"github.com/google/uuid"
-	"../model"
 )
 
 type UserRepository interface {

@@ -1,8 +1,8 @@
 package repository
 
 import (
+	"github.com/THEToilet/events-server/pkg/domain/model"
 	"github.com/google/uuid"
-	"../model"
 )
 
 type TagRepository interface {
@@ -11,4 +11,3 @@ type TagRepository interface {
 	FindAll() (*[]model.Tag, error)
 	Delete(id uuid.UUID) error
 }
-

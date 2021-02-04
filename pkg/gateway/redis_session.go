@@ -1,4 +1,4 @@
-package session
+package gateway
 
 import (
 	"github.com/gomodule/redigo/redis"

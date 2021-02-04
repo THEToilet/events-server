@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df570429-8fb1-43b1-ba7b-33f05c954df1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pkg/gateway/database/mysql/conn.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gateway/database/redis_conn.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gateway/database/redis/conn.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/domain/repository/tag_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/domain/repository/tag_repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/domain/repository/user_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/domain/repository/user_repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gateway/event/mysql_event_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gateway/mysql_event_repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gateway/session/redis_session.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gateway/redis_session.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gateway/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gateway/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/handler/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/handler/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/usercase/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/usercase/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,11 +69,11 @@
       <recent name="\\wsl$\Ubuntu-18.04\home\host\denserver\pkg\gateway\database\mysql" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu-18.04\home\host\denserver\pkg\gateway" />
       <recent name="\\wsl$\Ubuntu-18.04\home\host\denserver\pkg\gateway\database" />
       <recent name="\\wsl$\Ubuntu-18.04\home\host\denserver\pkg\gateway\database\mysql" />
       <recent name="\\wsl$\Ubuntu-18.04\home\host\denserver" />
       <recent name="\\wsl$\Ubuntu-18.04\home\host\denserver\pkg\domain\repository" />
-      <recent name="\\wsl$\Ubuntu-18.04\home\host\denserver\pkg\domain\model" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

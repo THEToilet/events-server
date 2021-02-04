@@ -1,23 +1,25 @@
 package gateway
 
 import (
+	"database/sql"
 	"github.com/google/uuid"
 
-	"../domain/model"
-	"../domain/repository"
+	"github.com/THEToilet/events-server/pkg/domain/model"
+	"github.com/THEToilet/events-server/pkg/domain/repository"
 )
 
 var _ repository.UserRepository = &UserRepository{}
 
 // UserRepository は repository.UserRepository を満たす構造体です
 type UserRepository struct {
-	dbMap *gorp.DbMap
+	sqlDB *sql.DB
 }
 
 // NewUserRepository はUserRepositoryのポインタを生成する関数です
-func NewUserRepository(dbMap *gorp.DbMap) *UserRepository {
-	dbMap.AddTableWithName(userDTO{}, "users").SetKeys(false, "ID")
-	return &UserRepository{dbMap: dbMap}
+func NewUserRepository(sqlDB *sql.DB) *UserRepository {
+	return &UserRepository{
+		sqlDB: sqlDB,
+	}
 }
 
 func (u UserRepository) Find(id uuid.UUID) (*model.User, error) {
@@ -36,7 +38,3 @@ func (u UserRepository) Delete(id uuid.UUID) error {
 	panic("implement me")
 }
 
-type userDTO struct {
-	ID   string `db:"id"`
-	Mail string `db:"mail"`
-}

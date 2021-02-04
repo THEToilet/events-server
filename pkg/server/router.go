@@ -1,24 +1,39 @@
 package main
 
 import (
-	"../server/handler"
-	"../gateway/database"
-	"log"
+	"github.com/THEToilet/events-server/pkg/server/handler"
+	"github.com/THEToilet/events-server/pkg/usercase"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"net/http"
 )
 
-func Server(addr string) {
-	//conn := database.Connect()
-	http.HandleFunc("auth/login", get(handler.HandleAuthLogin()))
-	http.HandleFunc("auth/login", get(handler.HandleCallback()))
-	http.HandleFunc("events/:eventId", put(handler.HandleCallback()))
-	http.HandleFunc("events/:eventId", delete(handler.HandleCallback()))
-	http.HandleFunc("events", get(handler.HandleCallback()))
-	http.HandleFunc("events", post(handler.HandleCallback()))
-	err := http.ListenAndServe(addr, nil)
-	if err != nil {
-		log.Fatalf("Listen and serve failed. %+v", err)
-	}
+func NewServer(userUseCase *usercase.UserUseCase) *echo.Echo {
+	e := echo.New()
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
+
+	userHandler := handler.NewUserHandler(userUseCase)
+	v1 := e.Group("/api/v1")
+	v1.GET("/callback")
+
+	users := v1.Group("/users")
+	users.GET("", userHandler.GetUser)
+	users.POST("/login", userHandler.GetUser)
+	users.POST("/entry", userHandler.GetUser)
+	users.GET("/logout", userHandler.GetUser)
+	events := v1.Group("/events")
+	events.GET("")
+	events.POST("")
+	events.PUT("/:id")
+	events.DELETE("/:id")
+
+	tags := events.Group("/tags")
+	tags.GET("")
+	tags.POST("")
+	return e
 }
 
 // get GETリクエストを処理する

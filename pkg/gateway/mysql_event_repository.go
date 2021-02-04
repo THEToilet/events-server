@@ -1,8 +1,7 @@
-package event
+package gateway
 
 import (
 	"database/sql"
-	"github.com/go-sql-driver/mysql"
 )
 
 type Event struct {
