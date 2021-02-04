@@ -5,9 +5,9 @@ import (
 	"../model"
 )
 
-type UserRepository interface {
-	Find(id uuid.UUID) (*model.User, error)
-	FindAll() (*[]model.User, error)
+type EventRepository interface {
+	Find(id uuid.UUID) (*model.Tag, error)
+	FindAll() (*[]model.Event, error)
 	Save(id uuid.UUID, mail string) error
 	Delete(id uuid.UUID) error
 }

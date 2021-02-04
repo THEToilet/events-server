@@ -41,7 +41,7 @@
     <property name="configurable..is.expanded" value="false" />
     <property name="configurable.GoLibrariesConfigurable.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/DEN3/traQ" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg/domain/repository" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -52,6 +52,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu-18.04\home\host\denserver\pkg\domain\repository" />
       <recent name="\\wsl$\Ubuntu-18.04\home\host\denserver\pkg\gateway\database\redis" />
       <recent name="\\wsl$\Ubuntu-18.04\home\host\denserver\pkg\gateway\database\mysql" />
     </key>
