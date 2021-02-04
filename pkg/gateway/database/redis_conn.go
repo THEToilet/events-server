@@ -1,11 +1,11 @@
-package redi
+package database
 
 import (
 	"github.com/gomodule/redigo/redis"
 	"log"
 )
 
-func Connect() redis.Conn {
+func NewRedis() (redis.Conn, error) {
 	ip := "127.0.0.1"
 	port := "6379"
 
@@ -15,5 +15,5 @@ func Connect() redis.Conn {
 		log.Fatal("error")
 	}
 	defer conn.Close()
-	return conn
+	return conn, err
 }
