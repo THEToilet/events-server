@@ -1,6 +1,7 @@
 package usercase
 
 import (
+	"context"
 	"fmt"
 	"github.com/THEToilet/events-server/pkg/domain/model"
 	"github.com/THEToilet/events-server/pkg/domain/repository"
@@ -19,7 +20,7 @@ func NewUserUseCase(userRepository repository.UserRepository) *UserUseCase {
 	}
 }
 
-func (u *UserUseCase) GetUser() (*model.User, error) {
+func (u *UserUseCase) GetUser(context.Context) (*model.User, error) {
 	user, err := u.userRepository.Find(uuid.New())
 	if err != nil {
 		fmt.Errorf("unko")

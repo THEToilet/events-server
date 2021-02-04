@@ -8,14 +8,16 @@ import (
 	"net/http"
 )
 
-func NewServer(userUseCase *usercase.UserUseCase) *echo.Echo {
+func NewServer(userUseCase *usercase.UserUseCase, eventUseCase *usercase.EventUseCase, tagUseCase *usercase.TagUseCase) *echo.Echo {
 	e := echo.New()
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-
 	userHandler := handler.NewUserHandler(userUseCase)
+	tagHandler := handler.NewTagHandler(tagUseCase)
+	eventHandler := handler.NewEventHandler(eventUseCase)
+
 	v1 := e.Group("/api/v1")
 	v1.GET("/callback")
 
@@ -25,35 +27,15 @@ func NewServer(userUseCase *usercase.UserUseCase) *echo.Echo {
 	users.POST("/entry", userHandler.GetUser)
 	users.GET("/logout", userHandler.GetUser)
 	events := v1.Group("/events")
-	events.GET("")
-	events.POST("")
-	events.PUT("/:id")
-	events.DELETE("/:id")
+	events.GET("", eventHandler.GetEvent)
+	events.POST("", eventHandler.PostEvent)
+	events.PUT("/:id", eventHandler.PutEvent)
+	events.DELETE("/:id", eventHandler.DeleteEvent)
 
 	tags := events.Group("/tags")
-	tags.GET("")
-	tags.POST("")
+	tags.GET("", tagHandler.GetTagList)
+	tags.POST("", tagHandler.PostTagList)
 	return e
-}
-
-// get GETリクエストを処理する
-func get(apiFunc http.HandlerFunc) http.HandlerFunc {
-	return httpMethod(apiFunc, http.MethodGet)
-}
-
-// post POSTリクエストを処理する
-func post(apiFunc http.HandlerFunc) http.HandlerFunc {
-	return httpMethod(apiFunc, http.MethodPost)
-}
-
-// post PUTリクエストを処理する
-func put(apiFunc http.HandlerFunc) http.HandlerFunc {
-	return httpMethod(apiFunc, http.MethodPut)
-}
-
-// post DELETEリクエストを処理する
-func delete(apiFunc http.HandlerFunc) http.HandlerFunc {
-	return httpMethod(apiFunc, http.MethodDelete)
 }
 
 // httpMethod 指定したHTTPメソッドでAPIの処理を実行する
