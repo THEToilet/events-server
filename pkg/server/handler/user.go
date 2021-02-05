@@ -1,17 +1,17 @@
 package handler
 
 import (
-	"github.com/THEToilet/events-server/pkg/usercase"
+	"github.com/THEToilet/events-server/pkg/usecase"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
 
 type UserHandler struct {
-	userUseCase *usercase.UserUseCase
+	userUseCase *usecase.UserUseCase
 }
 
-func NewUserHandler(userUseCase *usercase.UserUseCase) *UserHandler {
+func NewUserHandler(userUseCase *usecase.UserUseCase) *UserHandler {
 	return &UserHandler{
 		userUseCase: userUseCase,
 	}

@@ -6,7 +6,7 @@ import (
 	"github.com/THEToilet/events-server/pkg/gateway"
 	"github.com/THEToilet/events-server/pkg/gateway/database"
 	"github.com/THEToilet/events-server/pkg/server"
-	"github.com/THEToilet/events-server/pkg/usercase"
+	"github.com/THEToilet/events-server/pkg/usecase"
 )
 
 func main() {
@@ -20,11 +20,12 @@ func main() {
 	eventRepository := gateway.NewEventRepository(sqlDB)
 	tagRepository := gateway.NewTagRepository(sqlDB)
 
-	userUseCase := usercase.NewUserUseCase(userRepository)
-	eventUseCase := usercase.NewEventUseCase(eventRepository)
-	tagUseCase := usercase.NewTagUseCase(tagRepository)
+	userUseCase := usecase.NewUserUseCase(userRepository)
+	eventUseCase := usecase.NewEventUseCase(eventRepository)
+	tagUseCase := usecase.NewTagUseCase(tagRepository)
+	authUseCase := usecase.NewAuthUseCase()
 
-	s := server.NewServer(userUseCase, eventUseCase, tagUseCase)
+	s := server.NewServer(userUseCase, eventUseCase, tagUseCase, authUseCase)
 
 	s.Start(config.Port())
 }

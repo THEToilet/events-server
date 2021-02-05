@@ -1,16 +1,16 @@
 package handler
 
 import (
-	"github.com/THEToilet/events-server/pkg/usercase"
+	"github.com/THEToilet/events-server/pkg/usecase"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
 
 type TagHandler struct {
-	tagUseCase *usercase.TagUseCase
+	tagUseCase *usecase.TagUseCase
 }
 
-func NewTagHandler(tagUseCase *usercase.TagUseCase) *TagHandler {
+func NewTagHandler(tagUseCase *usecase.TagUseCase) *TagHandler {
 	return &TagHandler{
 		tagUseCase: tagUseCase,
 	}

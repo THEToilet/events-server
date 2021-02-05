@@ -1,4 +1,4 @@
-package usercase
+package usecase
 
 import (
 	"github.com/THEToilet/events-server/pkg/domain/model"

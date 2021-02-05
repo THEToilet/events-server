@@ -1,4 +1,4 @@
-package usercase
+package usecase
 
 import (
 	"context"
@@ -21,7 +21,7 @@ func NewUserUseCase(userRepository repository.UserRepository) *UserUseCase {
 }
 
 func (u *UserUseCase) GetUser(context.Context) (*model.User, error) {
-	user, err := u.userRepository.Find(uuid.New())
+	user, err := u.userRepository.Find(uuid.New().String())
 	if err != nil {
 		fmt.Errorf("unko")
 	}

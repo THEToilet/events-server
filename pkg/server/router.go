@@ -2,13 +2,12 @@ package server
 
 import (
 	"github.com/THEToilet/events-server/pkg/server/handler"
-	"github.com/THEToilet/events-server/pkg/usercase"
+	"github.com/THEToilet/events-server/pkg/usecase"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"net/http"
 )
 
-func NewServer(userUseCase *usercase.UserUseCase, eventUseCase *usercase.EventUseCase, tagUseCase *usercase.TagUseCase, authUseCase *usercase.AuthUseCase) *echo.Echo {
+func NewServer(userUseCase *usecase.UserUseCase, eventUseCase *usecase.EventUseCase, tagUseCase *usecase.TagUseCase, authUseCase *usecase.AuthUseCase) *echo.Echo {
 	e := echo.New()
 
 	e.Use(middleware.Logger())
@@ -42,21 +41,20 @@ func NewServer(userUseCase *usercase.UserUseCase, eventUseCase *usercase.EventUs
 }
 
 /*
-		// CORS対応
-		writer.Header().Add("Access-Control-Allow-Origin", "*")
-		writer.Header().Add("Access-Control-Allow-Headers", "Content-Type,Accept,Origin,x-token")
-		// プリフライトリクエストは処理を通さない
-		if request.Method == http.MethodOptions {
-			return
-		}
-		// 指定のHTTPメソッドでない場合はエラー
-		if request.Method != method {
-			writer.WriteHeader(http.StatusMethodNotAllowed)
-			writer.Write([]byte("Method Not Allowed"))
-			return
-		}
-		// 共通のレスポンスヘッダを設定
-		writer.Header().Add("Content-Type", "application/json")
-		apiFunc(writer, request)
- */
-}
+	// CORS対応
+	writer.Header().Add("Access-Control-Allow-Origin", "*")
+	writer.Header().Add("Access-Control-Allow-Headers", "Content-Type,Accept,Origin,x-token")
+	// プリフライトリクエストは処理を通さない
+	if request.Method == http.MethodOptions {
+		return
+	}
+	// 指定のHTTPメソッドでない場合はエラー
+	if request.Method != method {
+		writer.WriteHeader(http.StatusMethodNotAllowed)
+		writer.Write([]byte("Method Not Allowed"))
+		return
+	}
+	// 共通のレスポンスヘッダを設定
+	writer.Header().Add("Content-Type", "application/json")
+	apiFunc(writer, request)
+*/

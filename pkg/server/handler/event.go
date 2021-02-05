@@ -1,16 +1,16 @@
 package handler
 
 import (
-	"github.com/THEToilet/events-server/pkg/usercase"
+	"github.com/THEToilet/events-server/pkg/usecase"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
 
 type EventHandler struct {
-	eventUseCase *usercase.EventUseCase
+	eventUseCase *usecase.EventUseCase
 }
 
-func NewEventHandler(eventUseCase *usercase.EventUseCase) *EventHandler {
+func NewEventHandler(eventUseCase *usecase.EventUseCase) *EventHandler {
 	return &EventHandler{
 		eventUseCase: eventUseCase,
 	}

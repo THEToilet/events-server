@@ -4,14 +4,14 @@ import (
 	"github.com/THEToilet/events-server/pkg/http"
 	"fmt"
 	"github.com/THEToilet/events-server/pkg/http/response"
-	"github.com/THEToilet/events-server/pkg/usercase"
+	"github.com/THEToilet/events-server/pkg/usecase"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
 
 type AuthHandler struct {
-	authUseCase *usercase.AuthUseCase
+	authUseCase *usecase.AuthUseCase
 }
 
 func (h AuthHandler) CallBack(context echo.Context) error {
@@ -22,7 +22,7 @@ func (h AuthHandler) Login(context echo.Context) error {
 	
 }
 
-func NewAuthHandler(authUseCase *usercase.AuthUseCase) *AuthHandler {
+func NewAuthHandler(authUseCase *usecase.AuthUseCase) *AuthHandler {
 	return &AuthHandler{
 		authUseCase: authUseCase,
 	}
