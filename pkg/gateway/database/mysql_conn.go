@@ -2,7 +2,7 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
+	"github.com/THEToilet/events-server/pkg/config"
 	"log"
 	"os"
 
@@ -15,10 +15,10 @@ func NewMySqlDB() (*sql.DB, error) {
 	host := os.Getenv("MYSQL_HOST")
 	port := os.Getenv("MYSQL_PORT")
 	database := os.Getenv("MYSQL_DATABASE")
+	//fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", user, password, host, port, database))
 	// user:password@tcp(host:port)/database
 	var err error
-	conn, err := sql.Open("sql",
-		fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", user, password, host, port, database))
+	conn, err := sql.Open("sql", config.DSN())
 	if err != nil {
 		log.Fatal(err)
 	}

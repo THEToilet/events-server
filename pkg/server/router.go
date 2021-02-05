@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"github.com/THEToilet/events-server/pkg/server/handler"
@@ -19,7 +19,9 @@ func NewServer(userUseCase *usercase.UserUseCase, eventUseCase *usercase.EventUs
 	eventHandler := handler.NewEventHandler(eventUseCase)
 
 	v1 := e.Group("/api/v1")
+	auth := v1.Group("/auth")
 	v1.GET("/callback")
+	v1.GET("/login")
 
 	users := v1.Group("/users")
 	users.GET("", userHandler.GetUser)
@@ -38,14 +40,10 @@ func NewServer(userUseCase *usercase.UserUseCase, eventUseCase *usercase.EventUs
 	return e
 }
 
-// httpMethod 指定したHTTPメソッドでAPIの処理を実行する
-func httpMethod(apiFunc http.HandlerFunc, method string) http.HandlerFunc {
-	return func(writer http.ResponseWriter, request *http.Request) {
-
+/*
 		// CORS対応
 		writer.Header().Add("Access-Control-Allow-Origin", "*")
 		writer.Header().Add("Access-Control-Allow-Headers", "Content-Type,Accept,Origin,x-token")
-
 		// プリフライトリクエストは処理を通さない
 		if request.Method == http.MethodOptions {
 			return
@@ -56,9 +54,8 @@ func httpMethod(apiFunc http.HandlerFunc, method string) http.HandlerFunc {
 			writer.Write([]byte("Method Not Allowed"))
 			return
 		}
-
 		// 共通のレスポンスヘッダを設定
 		writer.Header().Add("Content-Type", "application/json")
 		apiFunc(writer, request)
-	}
+ */
 }
