@@ -1,12 +1,32 @@
 package handler
 
 import (
-	"../../http/response"
 	"github.com/THEToilet/events-server/pkg/http"
 	"fmt"
+	"github.com/THEToilet/events-server/pkg/http/response"
+	"github.com/THEToilet/events-server/pkg/usercase"
 	"github.com/google/uuid"
+	"github.com/labstack/echo/v4"
 	"net/http"
 )
+
+type AuthHandler struct {
+	authUseCase *usercase.AuthUseCase
+}
+
+func (h AuthHandler) CallBack(context echo.Context) error {
+	
+}
+
+func (h AuthHandler) Login(context echo.Context) error {
+	
+}
+
+func NewAuthHandler(authUseCase *usercase.AuthUseCase) *AuthHandler {
+	return &AuthHandler{
+		authUseCase: authUseCase,
+	}
+}
 
 func HandleAuthLogin() http.HandlerFunc {
 	return func(writer http.ResponseWriter, request *http.Request) {

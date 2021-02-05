@@ -7,18 +7,18 @@ import (
 )
 
 type EventHandler struct {
-	userUseCase *usercase.EventUseCase
+	eventUseCase *usercase.EventUseCase
 }
 
 func NewEventHandler(eventUseCase *usercase.EventUseCase) *EventHandler {
 	return &EventHandler{
-		userUseCase: eventUseCase,
+		eventUseCase: eventUseCase,
 	}
 }
 
 func (h *EventHandler) GetEvent(c echo.Context) error {
 	ctx := c.Request().Context()
-	user, err := h.userUseCase.GetUser(ctx)
+	user, err := h.eventUseCase.GetUser(ctx)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}

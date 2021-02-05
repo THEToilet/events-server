@@ -47,4 +47,3 @@ func (h *UserHandler) UserLogin(c echo.Context) error {
 	})
 	return c.String(http.StatusOK, "OK")
 }
-

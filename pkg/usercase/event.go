@@ -1,8 +1,8 @@
 package usercase
 
 import (
-	"../domain/model"
-	"../domain/repository"
+	"github.com/THEToilet/events-server/pkg/domain/model"
+	"github.com/THEToilet/events-server/pkg/domain/repository"
 )
 
 type EventUseCase struct {

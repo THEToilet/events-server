@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func NewServer(userUseCase *usercase.UserUseCase, eventUseCase *usercase.EventUseCase, tagUseCase *usercase.TagUseCase) *echo.Echo {
+func NewServer(userUseCase *usercase.UserUseCase, eventUseCase *usercase.EventUseCase, tagUseCase *usercase.TagUseCase, authUseCase *usercase.AuthUseCase) *echo.Echo {
 	e := echo.New()
 
 	e.Use(middleware.Logger())
@@ -17,11 +17,12 @@ func NewServer(userUseCase *usercase.UserUseCase, eventUseCase *usercase.EventUs
 	userHandler := handler.NewUserHandler(userUseCase)
 	tagHandler := handler.NewTagHandler(tagUseCase)
 	eventHandler := handler.NewEventHandler(eventUseCase)
+	authHandler := handler.NewAuthHandler(authUseCase)
 
 	v1 := e.Group("/api/v1")
 	auth := v1.Group("/auth")
-	v1.GET("/callback")
-	v1.GET("/login")
+	auth.GET("/callback", authHandler.CallBack)
+	auth.GET("/login", authHandler.Login)
 
 	users := v1.Group("/users")
 	users.GET("", userHandler.GetUser)

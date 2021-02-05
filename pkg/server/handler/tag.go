@@ -18,7 +18,7 @@ func NewTagHandler(tagUseCase *usercase.TagUseCase) *TagHandler {
 
 func (h *TagHandler) GetTagList(c echo.Context) error {
 	ctx := c.Request().Context()
-	user, err := h.userUseCase.GetUser(ctx)
+	user, err := h.tagUseCase.GetUser(ctx)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
@@ -34,7 +34,7 @@ type tagResponse struct {
 
 func (h *TagHandler) PostTagList(c echo.Context) error {
 	ctx := c.Request().Context()
-	user, err := h.userUseCase.GetUser(ctx)
+	user, err := h.tagUseCase.GetUser(ctx)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}

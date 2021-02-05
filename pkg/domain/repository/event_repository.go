@@ -1,13 +1,12 @@
 package repository
 
 import (
-	"github.com/google/uuid"
-	"../model"
+	"github.com/THEToilet/events-server/pkg/domain/model"
 )
 
 type EventRepository interface {
-	Find(id uuid.UUID) (*model.Tag, error)
+	Find(id string) (*model.Tag, error)
 	FindAll() (*[]model.Event, error)
-	Save(id uuid.UUID, mail string) error
-	Delete(id uuid.UUID) error
+	Save(id string, mail string) error
+	Delete(id string) error
 }
