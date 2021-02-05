@@ -5,15 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/domain/repository/tag_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/domain/repository/tag_repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/domain/repository/user_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/domain/repository/user_repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gateway/event/mysql_event_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gateway/mysql_event_repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gateway/session/redis_session.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gateway/redis_session.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gateway/database/mysql_conn.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gateway/database/mysql_conn.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/gateway/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gateway/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/server/handler/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/handler/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/server/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/usercase/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/usercase/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
