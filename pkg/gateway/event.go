@@ -7,21 +7,21 @@ import (
 	"github.com/THEToilet/events-server/pkg/domain/repository"
 )
 
-var _ repository.UserRepository = &UserRepository{}
+var _ repository.EventRepository = &EventRepository{}
 
 // UserRepository は repository.UserRepository を満たす構造体です
-type UserRepository struct {
+type EventRepository struct {
 	sqlDB *sql.DB
 }
 
 // NewUserRepository はUserRepositoryのポインタを生成する関数です
-func NewUserRepository(sqlDB *sql.DB) *UserRepository {
-	return &UserRepository{
+func NewEventRepository(sqlDB *sql.DB) *EventRepository {
+	return &EventRepository{
 		sqlDB: sqlDB,
 	}
 }
 
-func (u UserRepository) Find(id string) (*model.User, error) {
+func (u EventRepository) Find(id string) (*model.Event, error) {
 	stmt, err := u.sqlDB.Prepare("SELECT * FROM users WHERE id=?;")
 	if err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func (u UserRepository) Find(id string) (*model.User, error) {
 	return &user, nil
 }
 
-func (u UserRepository) FindAll() (*[]*model.User, error) {
+func (u EventRepository) FindAll() (*[]*model.Event, error) {
 	rows, err := u.sqlDB.Query("SELECT * FROM users")
 	if err != nil {
 		return nil, err
@@ -62,14 +62,14 @@ func (u UserRepository) FindAll() (*[]*model.User, error) {
 	return &res, nil
 }
 
-func (u UserRepository) Save(id string, mail string) error {
+func (u EventRepository) Save(id string) error {
 	stmt, err := u.sqlDB.Prepare("INSERT INTO users(id, mail) values(?, ?);")
 	if err != nil {
 		return err
 	}
 	defer stmt.Close()
 
-	insertResult, err := stmt.Exec(id, mail)
+	insertResult, err := stmt.Exec(id)
 	if err != nil {
 		return err
 	}
@@ -83,8 +83,8 @@ func (u UserRepository) Save(id string, mail string) error {
 	return nil
 }
 
-func (u UserRepository) Delete(id string) error {
-	stmt, err := u.sqlDB.Prepare("DELETE FROM users WHERE id = ?;")
+func (u EventRepository) Delete(id string) error {
+	stmt, err := u.sqlDB.Prepare("DELETE FROM users WHERE id + ?;")
 	if err != nil {
 		return err
 	}
@@ -93,6 +93,27 @@ func (u UserRepository) Delete(id string) error {
 	if _, err := stmt.Exec(id); err != nil {
 		return err
 	}
+
+	return nil
+}
+
+func (u EventRepository) Update(id string) error {
+	stmt, err := u.sqlDB.Prepare("INSERT INTO users(id, mail) values(?, ?);")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	insertResult, err := stmt.Exec(id)
+	if err != nil {
+		return err
+	}
+
+	userID, err := insertResult.LastInsertId()
+	if err != nil {
+		return err
+	}
+	fmt.Println(userID)
 
 	return nil
 }

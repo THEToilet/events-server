@@ -5,8 +5,9 @@ import (
 )
 
 type EventRepository interface {
-	Find(id string) (*model.Tag, error)
-	FindAll() (*[]model.Event, error)
-	Save(id string, mail string) error
+	Find(id string) (*model.Event, error)
+	FindAll() (*[]*model.Event, error)
+	Save(id string) error
 	Delete(id string) error
+	Update(id string) error
 }

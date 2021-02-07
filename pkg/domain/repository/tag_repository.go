@@ -7,6 +7,6 @@ import (
 type TagRepository interface {
 	Save(name string) (*model.Tag, error)
 	Find(id string) (*model.Tag, error)
-	FindAll() (*[]model.Tag, error)
+	FindAll() (*[]*model.Tag, error)
 	Delete(id string) error
 }
