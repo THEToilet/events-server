@@ -27,3 +27,7 @@ func (u *UserUseCase) GetUser(context.Context) (*model.User, error) {
 	}
 	return user, err
 }
+
+func (u *UserUseCase) UserLogin(ctx context.Context) (interface{}, interface{}) {
+	
+}

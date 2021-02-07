@@ -35,7 +35,22 @@ type userResponse struct {
 
 func (h *UserHandler) UserLogin(c echo.Context) error {
 	ctx := c.Request().Context()
-	user, err := h.userUseCase.GetUser(ctx)
+	user, err := h.userUseCase.UserLogin(ctx)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError)
+	}
+
+	sessionID := uuid.New().String()
+	c.SetCookie(&http.Cookie{
+		Name:  "session",
+		Value: sessionID,
+	})
+	return c.String(http.StatusOK, "OK")
+}
+
+func (h *UserHandler) UserEntry(c echo.Context) error {
+	ctx := c.Request().Context()
+	user, err := h.userUseCase.UserLogin(ctx)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
