@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"context"
 	"github.com/THEToilet/events-server/pkg/domain/model"
 	"github.com/THEToilet/events-server/pkg/domain/repository"
 )
@@ -15,5 +16,5 @@ func NewEventUseCase(eventRepository repository.EventRepository) *EventUseCase {
 	}
 }
 
-func (t *EventUseCase) GetEvent() (*model.Event, error) {
+func (t *EventUseCase) GetEvent(context.Context) (*model.Event, error) {
 }

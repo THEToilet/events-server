@@ -18,7 +18,7 @@ func NewEventHandler(eventUseCase *usecase.EventUseCase) *EventHandler {
 
 func (h *EventHandler) GetEvent(c echo.Context) error {
 	ctx := c.Request().Context()
-	user, err := h.eventUseCase.GetUser(ctx)
+	event, err := h.eventUseCase.GetEvent(ctx)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
@@ -27,9 +27,31 @@ func (h *EventHandler) GetEvent(c echo.Context) error {
 		Mail: user.Mail,
 	})
 }
-func (h *EventHandler) PutEvent(c echo.Context) error    {}
-func (h *EventHandler) PostEvent(c echo.Context) error   {}
-func (h *EventHandler) DeleteEvent(c echo.Context) error {}
+func (h *EventHandler) PutEvent(c echo.Context) error {
+	ctx := c.Request().Context()
+	event, err := h.eventUseCase.GetEvent(ctx)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError)
+	}
+	return c.JSON(http.StatusOK, 9)
+}
+func (h *EventHandler) PostEvent(c echo.Context) error {
+	ctx := c.Request().Context()
+	event, err := h.eventUseCase.GetEvent(ctx)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError)
+	}
+	return c.JSON(http.StatusOK, 9)
+}
+
+func (h *EventHandler) DeleteEvent(c echo.Context) error {
+	ctx := c.Request().Context()
+	event, err := h.eventUseCase.GetEvent(ctx)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError)
+	}
+	return c.JSON(http.StatusOK, 9)
+}
 
 type eventResponse struct {
 	Mail string `json:"main"`
