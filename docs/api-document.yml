@@ -237,7 +237,7 @@ paths:
       tags:
         - event
       description: 新たなイベントを登録します。
-  /event/tags:
+  /events/tags:
     get:
       summary: tag一覧取得
       tags:
@@ -299,6 +299,7 @@ paths:
       tags:
         - tag
       description: 新たなタグを追加します。
+    parameters: []
   /users:
     get:
       summary: ユーザ情報取得
@@ -398,3 +399,4 @@ tags:
   - name: event
   - name: users
   - name: tag
+
