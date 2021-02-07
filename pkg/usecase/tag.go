@@ -16,10 +16,12 @@ func NewTagUseCase(tagRepository repository.TagRepository) *TagUseCase {
 	}
 }
 
-func (t *TagUseCase) PostTag(ctx context.Context) error {
-
+func (t *TagUseCase) PostTag(ctx context.Context, name string) (*model.Tag, error) {
+	tag, err := t.tagRepository.Save(name)
+	return tag, err
 }
 
 func (t *TagUseCase) GetTagList(ctx context.Context) ([]*model.Tag, error) {
-
+	tags, err := t.tagRepository.FindAll()
+	return tags, err
 }

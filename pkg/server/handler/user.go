@@ -37,7 +37,7 @@ type userResponse struct {
 //UserLogin は POST /users/login に対応するハンドラーです
 func (h *UserHandler) UserLogin(c echo.Context) error {
 	ctx := c.Request().Context()
-	user, err := h.userUseCase.UserLogin(ctx)
+	_, err := h.userUseCase.UserLogin(ctx)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
@@ -47,13 +47,13 @@ func (h *UserHandler) UserLogin(c echo.Context) error {
 		Name:  "session",
 		Value: sessionID,
 	})
-	return c.String(http.StatusOK, "OK")
+	return c.NoContent(http.StatusOK)
 }
 
 //UserEntry は POST /users/entry に対応するハンドラーです
 func (h *UserHandler) UserEntry(c echo.Context) error {
 	ctx := c.Request().Context()
-	user, err := h.userUseCase.UserLogin(ctx)
+	_, err := h.userUseCase.UserLogin(ctx)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
@@ -63,5 +63,5 @@ func (h *UserHandler) UserEntry(c echo.Context) error {
 		Name:  "session",
 		Value: sessionID,
 	})
-	return c.String(http.StatusOK, "OK")
+	return c.NoContent(http.StatusOK)
 }
