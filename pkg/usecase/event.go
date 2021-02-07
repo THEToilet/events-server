@@ -18,3 +18,9 @@ func NewEventUseCase(eventRepository repository.EventRepository) *EventUseCase {
 
 func (t *EventUseCase) GetEvent(context.Context) (*model.Event, error) {
 }
+func (t *EventUseCase) PostEvent(context.Context) (*model.Event, error) {
+}
+func (t *EventUseCase) PutEvent(context.Context) (*model.Event, error) {
+}
+func (t *EventUseCase) DeleteEvent(context.Context) (*model.Event, error) {
+}

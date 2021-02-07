@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"context"
 	"fmt"
 	"github.com/THEToilet/events-server/pkg/domain/model"
 	"github.com/THEToilet/events-server/pkg/domain/repository"
@@ -17,10 +18,11 @@ func NewTagUseCase(tagRepository repository.TagRepository) *TagUseCase{
 	}
 }
 
-func (t *TagUseCase) GetTag() (*model.Tag, error) {
-	tag, err := t.tagRepository.Find(uuid.New().String())
-	if err != nil {
-		fmt.Errorf("unko")
-	}
-	return tag, err
+
+func (t *TagUseCase) PostTag(ctx context.Context) (interface{}, interface{}) {
+
+}
+
+func (t *TagUseCase) GetTagList(ctx context.Context) (interface{}, interface{}) {
+
 }
