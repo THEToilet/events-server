@@ -17,7 +17,8 @@ func NewEventUseCase(eventRepository repository.EventRepository) *EventUseCase {
 }
 
 //GetEvent イベントの一覧を取得します
-func (t *EventUseCase) GetEvent(ctx context.Context) (*[]*model.Event, error) {
+func (t *EventUseCase) GetEvent(ctx context.Context) ([]*model.Event, error) {
+
 }
 
 //PostEvent 新しくイベントを追加します

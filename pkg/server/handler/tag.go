@@ -25,9 +25,9 @@ func (h *TagHandler) GetTagList(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
-	res := make([]tagListResponse, len(tags))
+	res := make([]tagResponse, len(tags))
 	for i, v := range tags {
-		res[i] = tagListResponse{
+		res[i] = tagResponse{
 			TagId:     v.ID,
 			TagName:   v.Name,
 			CreatedAt: v.CreatedAt,
@@ -37,9 +37,9 @@ func (h *TagHandler) GetTagList(c echo.Context) error {
 	return c.JSON(http.StatusOK, res)
 }
 
-type tagListResponse struct {
-	TagId     string    `json:"tagId"`
-	TagName   string    `json:"tagName"`
+type tagResponse struct {
+	TagId     string    `json:"tag_id"`
+	TagName   string    `json:"tag_name"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }

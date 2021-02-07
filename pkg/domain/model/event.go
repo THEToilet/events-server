@@ -14,7 +14,7 @@ type Event struct {
 	Description string
 	Tag         []Tag
 	CreatedAt   time.Time
-	UpdateAt    time.Time
+	UpdatedAt    time.Time
 }
 
 //NewEvent 新しいイベントを生成してポインタを返します
@@ -27,6 +27,6 @@ func NewEvent(postedUser string, eventURL string, deadLine time.Time, descriptio
 		Description: description,
 		Tag: tag,
 		CreatedAt: time.Now(),
-		UpdateAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 }
