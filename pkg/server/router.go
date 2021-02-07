@@ -36,7 +36,7 @@ func NewServer(userUseCase *usecase.UserUseCase, eventUseCase *usecase.EventUseC
 
 	tags := events.Group("/tags")
 	tags.GET("", tagHandler.GetTagList)
-	tags.POST("", tagHandler.PostTagList)
+	tags.POST("", tagHandler.PostTag)
 	return e
 }
 
