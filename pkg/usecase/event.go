@@ -16,11 +16,18 @@ func NewEventUseCase(eventRepository repository.EventRepository) *EventUseCase {
 	}
 }
 
-func (t *EventUseCase) GetEvent(context.Context) (*model.Event, error) {
+//GetEvent イベントの一覧を取得します
+func (t *EventUseCase) GetEvent(ctx context.Context) (*[]*model.Event, error) {
 }
-func (t *EventUseCase) PostEvent(context.Context) (*model.Event, error) {
+
+//PostEvent 新しくイベントを追加します
+func (t *EventUseCase) PostEvent(ctx context.Context) (*model.Event, error) {
 }
-func (t *EventUseCase) PutEvent(context.Context) (*model.Event, error) {
+
+//PutEvent idで指定されたイベントを更新します。
+func (t *EventUseCase) PutEvent(ctx context.Context, id string) (*model.Event, error) {
 }
-func (t *EventUseCase) DeleteEvent(context.Context) (*model.Event, error) {
+
+//DeleteEvent idで指定されたイベントを削除します。
+func (t *EventUseCase) DeleteEvent(ctx context.Context, id string) (*model.Event, error) {
 }

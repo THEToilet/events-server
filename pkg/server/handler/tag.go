@@ -4,6 +4,7 @@ import (
 	"github.com/THEToilet/events-server/pkg/usecase"
 	"github.com/labstack/echo/v4"
 	"net/http"
+	"time"
 )
 
 type TagHandler struct {
@@ -16,30 +17,39 @@ func NewTagHandler(tagUseCase *usecase.TagUseCase) *TagHandler {
 	}
 }
 
+//GetTagList は　GET /events/tags に対応するハンドラーです
 func (h *TagHandler) GetTagList(c echo.Context) error {
 	ctx := c.Request().Context()
-	user, err := h.tagUseCase.GetTagList(ctx)
+	tags, err := h.tagUseCase.GetTagList(ctx)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
-	return c.JSON(http.StatusOK, &userResponse{
-		Mail: user.Mail,
-	})
+	res := make([]tagListResponse, len(tags))
+	for i, v := range tags {
+		res[i] = tagListResponse{
+			TagId:     v.ID,
+			TagName:   v.Name,
+			CreatedAt: v.CreatedAt,
+			UpdatedAt: v.UpdatedAt,
+		}
+	}
+	return c.JSON(http.StatusOK, res)
 }
 
-type tagResponse struct {
+type tagListResponse struct {
+	TagId     string    `json:"tagId"`
+	TagName   string    `json:"tagName"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
-
+//PostTag は POST /events/tags に対応するハンドラーです
 func (h *TagHandler) PostTag(c echo.Context) error {
 	ctx := c.Request().Context()
-	user, err := h.tagUseCase.PostTag(ctx)
+	err := h.tagUseCase.PostTag(ctx)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
-
-	return c.JSON(http.StatusOK, &userResponse{
-		Mail: user.Mail,
-	})
+	return c.NoContent(http.StatusOK)
 }

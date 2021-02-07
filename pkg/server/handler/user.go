@@ -17,6 +17,7 @@ func NewUserHandler(userUseCase *usecase.UserUseCase) *UserHandler {
 	}
 }
 
+//GetUser は GET /users に対応するハンドラーです
 func (h *UserHandler) GetUser(c echo.Context) error {
 	ctx := c.Request().Context()
 	user, err := h.userUseCase.GetUser(ctx)
@@ -33,6 +34,7 @@ type userResponse struct {
 	Mail string `json:"main"`
 }
 
+//UserLogin は POST /users/login に対応するハンドラーです
 func (h *UserHandler) UserLogin(c echo.Context) error {
 	ctx := c.Request().Context()
 	user, err := h.userUseCase.UserLogin(ctx)
@@ -48,6 +50,7 @@ func (h *UserHandler) UserLogin(c echo.Context) error {
 	return c.String(http.StatusOK, "OK")
 }
 
+//UserEntry は POST /users/entry に対応するハンドラーです
 func (h *UserHandler) UserEntry(c echo.Context) error {
 	ctx := c.Request().Context()
 	user, err := h.userUseCase.UserLogin(ctx)
