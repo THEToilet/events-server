@@ -5,14 +5,11 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-func getCLILogger() (logger *zap.Logger) {
+func New() (logger *zap.Logger) {
 	level := zap.NewAtomicLevel()
-	if c.DevMode {
-		level = zap.NewAtomicLevelAt(zap.DebugLevel)
-	}
 	cfg := zap.Config{
 		Level:       level,
-		Development: c.DevMode,
+		Development: false,
 		Encoding:    "console",
 		EncoderConfig: zapcore.EncoderConfig{
 			TimeKey:        "T",
