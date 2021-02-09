@@ -1,13 +1,8 @@
 package handler
 
 import (
-	"github.com/THEToilet/events-server/pkg/http"
-	"fmt"
-	"github.com/THEToilet/events-server/pkg/http/response"
 	"github.com/THEToilet/events-server/pkg/usecase"
-	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"net/http"
 )
 
 type AuthHandler struct {
@@ -15,11 +10,11 @@ type AuthHandler struct {
 }
 
 func (h AuthHandler) CallBack(context echo.Context) error {
-	
+	return nil
 }
 
 func (h AuthHandler) Login(context echo.Context) error {
-	
+	return nil
 }
 
 func NewAuthHandler(authUseCase *usecase.AuthUseCase) *AuthHandler {
@@ -28,6 +23,7 @@ func NewAuthHandler(authUseCase *usecase.AuthUseCase) *AuthHandler {
 	}
 }
 
+/*
 func HandleAuthLogin() http.HandlerFunc {
 	return func(writer http.ResponseWriter, request *http.Request) {
 		baseURL := "http://localhost:3000/oauth2/v1/authorize"
@@ -64,6 +60,8 @@ func HandleUserLogin() http.HandlerFunc {
 
 }
 
+*/
+
 type params struct {
 	Code        string `json:"code"`
 	ClientID    string `json:"client_id"`
@@ -73,16 +71,19 @@ type params struct {
 	Nonce       string `json:"nonce"`
 }
 
+/*
 
 func HandleCallback() http.HandlerFunc {
 	return func(writer http.ResponseWriter, request *http.Request) {
 	}
 }
 
+*/
+
 type data struct {
-	GrantType string `json:"authorization_code"`
-	Code string `json:"code"`
-	RedirectURI string `json:redirect_uri`
-	ClientID string `json:"client_id"`
+	GrantType    string `json:"authorization_code"`
+	Code         string `json:"code"`
+	RedirectURI  string `json:redirect_uri`
+	ClientID     string `json:"client_id"`
 	ClientSecret string `json:"client_secret"`
 }

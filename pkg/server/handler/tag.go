@@ -47,7 +47,8 @@ type tagResponse struct {
 //PostTag は POST /events/tags に対応するハンドラーです
 func (h *TagHandler) PostTag(c echo.Context) error {
 	ctx := c.Request().Context()
-	err := h.tagUseCase.PostTag(ctx)
+	name := "uu"
+	_, err := h.tagUseCase.PostTag(ctx, name)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}

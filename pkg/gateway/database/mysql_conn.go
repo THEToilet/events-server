@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"github.com/THEToilet/events-server/pkg/config"
+	_ "github.com/go-sql-driver/mysql"
 	"log"
 )
 

@@ -42,14 +42,14 @@ func (h *EventHandler) GetEvent(c echo.Context) error {
 }
 
 type eventResponse struct {
-	ID          string      `json:"event_id"`
-	PostedUser  string      `json:"posted_user"`
-	EventURL    string      `json:"event_url"`
-	DeadLine    time.Time   `json:"dead_line"`
-	Description string      `json:"description"`
-	Tag         []model.Tag `json:"tags"`
-	CreatedAt   time.Time   `json:"created_at"`
-	UpdatedAt   time.Time   `json:"updated_at"`
+	ID          string       `json:"event_id"`
+	PostedUser  string       `json:"posted_user"`
+	EventURL    string       `json:"event_url"`
+	DeadLine    time.Time    `json:"dead_line"`
+	Description string       `json:"description"`
+	Tag         []*model.Tag `json:"tags"`
+	CreatedAt   time.Time    `json:"created_at"`
+	UpdatedAt   time.Time    `json:"updated_at"`
 }
 
 //PutEvent は PUT /events/:id に対応するハンドラーです
@@ -76,7 +76,8 @@ func (h *EventHandler) PutEvent(c echo.Context) error {
 //PostEvent は POST /events に対応するハンドラーです
 func (h *EventHandler) PostEvent(c echo.Context) error {
 	ctx := c.Request().Context()
-	_, err := h.eventUseCase.PostEvent(ctx)
+	id := "uu" //c.Request().Body.Read("id").(string)
+	_, err := h.eventUseCase.PostEvent(ctx, id)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
@@ -87,7 +88,7 @@ func (h *EventHandler) PostEvent(c echo.Context) error {
 func (h *EventHandler) DeleteEvent(c echo.Context) error {
 	ctx := c.Request().Context()
 	id := c.Param("id")
-	_, err := h.eventUseCase.DeleteEvent(ctx, id)
+	err := h.eventUseCase.DeleteEvent(ctx, id)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}

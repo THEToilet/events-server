@@ -60,7 +60,7 @@ func (u TagRepository) FindAll() ([]*model.Tag, error) {
 		}
 		res = append(res, &tag)
 	}
-	return &res, nil
+	return res, nil
 }
 
 func (u TagRepository) Save(name string) (*model.Tag, error) {

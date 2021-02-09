@@ -15,15 +15,20 @@ func main() {
 	if err != nil {
 		fmt.Print("unko")
 	}
+	redisConn, err := database.NewRedis()
+	if err != nil {
+		fmt.Println("error")
+	}
 
 	userRepository := gateway.NewUserRepository(sqlDB)
 	eventRepository := gateway.NewEventRepository(sqlDB)
 	tagRepository := gateway.NewTagRepository(sqlDB)
+	sessionRepository := gateway.NewSessionRepository(redisConn)
 
 	userUseCase := usecase.NewUserUseCase(userRepository)
 	eventUseCase := usecase.NewEventUseCase(eventRepository)
 	tagUseCase := usecase.NewTagUseCase(tagRepository)
-	authUseCase := usecase.NewAuthUseCase()
+	authUseCase := usecase.NewAuthUseCase(sessionRepository)
 
 	s := server.NewServer(userUseCase, eventUseCase, tagUseCase, authUseCase)
 

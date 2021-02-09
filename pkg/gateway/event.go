@@ -75,7 +75,7 @@ func (u EventRepository) FindAll() ([]*model.Event, error) {
 	res := make([]*model.Event, 0)
 	for rows.Next() {
 		var user model.Event
-		if err := rows.Scan(&user.ID, &user.Mail); err != nil {
+		if err := rows.Scan(&user.ID); err != nil {
 			return nil, err
 		}
 		res = append(res, &user)
@@ -83,25 +83,25 @@ func (u EventRepository) FindAll() ([]*model.Event, error) {
 	return res, nil
 }
 
-func (u EventRepository) Save(id string) error {
+func (u EventRepository) Save(id string) (*model.Event, error) {
 	stmt, err := u.sqlDB.Prepare("INSERT INTO users(id, mail) values(?, ?);")
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer stmt.Close()
 
 	insertResult, err := stmt.Exec(id)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	userID, err := insertResult.LastInsertId()
 	if err != nil {
-		return err
+		return nil, err
 	}
 	fmt.Println(userID)
 
-	return nil
+	return nil, nil
 }
 
 func (u EventRepository) Delete(id string) error {
@@ -118,23 +118,23 @@ func (u EventRepository) Delete(id string) error {
 	return nil
 }
 
-func (u EventRepository) Update(id string) error {
+func (u EventRepository) Update(id string) (*model.Event, error) {
 	stmt, err := u.sqlDB.Prepare("INSERT INTO users(id, mail) values(?, ?);")
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer stmt.Close()
 
 	insertResult, err := stmt.Exec(id)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	userID, err := insertResult.LastInsertId()
 	if err != nil {
-		return err
+		return nil, err
 	}
 	fmt.Println(userID)
 
-	return nil
+	return nil, nil
 }
