@@ -46,9 +46,9 @@ func TestUserHandler_GetUser(t *testing.T) {
 			prepareMockUserRepo: func(repo *mock_repository.MockUserRepository) {
 				repo.EXPECT().Find("userID").Return(nil, errors.New("unknown error"))
 			},
-			want:               nil,
-			wantErr:            true,
-			wantCode:           http.StatusInternalServerError,
+			want:     nil,
+			wantErr:  true,
+			wantCode: http.StatusInternalServerError,
 		},
 	}
 	for _, tt := range tests {
@@ -58,25 +58,25 @@ func TestUserHandler_GetUser(t *testing.T) {
 			req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 			rec := httptest.NewRecorder()
 			c := e.NewContext(req, rec)
-			c = setToContext(c, tt.userID, nil)
+			//c = setToContext(c, tt.userID, nil)
 
 			// モックの準備
 			ctrl := gomock.NewController(t)
 			defer ctrl.Finish()
-			repo := mock_repository.NewMockUser(ctrl)
+			repo := mock_repository.NewMockUserRepository(ctrl)
 			tt.prepareMockUserRepo(repo)
-			cli := mock_spotify.NewMockUser(ctrl)
-			tt.prepareMockUserCli(cli)
-			uc := usecase.NewUserUseCase(cli, repo)
-			h := &UserHandler{userUC: uc}
+			userUseCase := usecase.NewUserUseCase(repo)
+			h := &UserHandler{
+				userUseCase: userUseCase,
+			}
 
 			err := h.GetUser(c)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GetMe() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GetUser() error = %v, wantErr %v", err, tt.wantErr)
 			}
 			// ステータスコードのチェック
 			if er, ok := err.(*echo.HTTPError); (ok && er.Code != tt.wantCode) || (!ok && rec.Code != tt.wantCode) {
-				t.Errorf("GetMe() code = %d, want = %d", rec.Code, tt.wantCode)
+				t.Errorf("GetUser() code = %d, want = %d", rec.Code, tt.wantCode)
 			}
 
 			if !tt.wantErr {

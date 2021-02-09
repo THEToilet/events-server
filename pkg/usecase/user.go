@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/THEToilet/events-server/pkg/domain/model"
 	"github.com/THEToilet/events-server/pkg/domain/repository"
-	"github.com/google/uuid"
 )
 
 //UserUseCase ユーザへのアプリケーション層です
@@ -20,8 +19,8 @@ func NewUserUseCase(userRepository repository.UserRepository) *UserUseCase {
 	}
 }
 
-func (u *UserUseCase) GetUser(context.Context) (*model.User, error) {
-	user, err := u.userRepository.Find(uuid.New().String())
+func (u *UserUseCase) GetUser(ctx context.Context, id string) (*model.User, error) {
+	user, err := u.userRepository.Find(id)
 	if err != nil {
 		fmt.Errorf("unko")
 	}

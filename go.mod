@@ -13,13 +13,14 @@ require (
 	github.com/fsouza/go-dockerclient v1.7.0 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang/mock v1.4.4 // indirect
+	github.com/golang/mock v1.4.4
 	github.com/gomodule/redigo v1.8.3
+	github.com/google/go-cmp v0.5.4
 	github.com/google/uuid v1.2.0
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/jinzhu/gorm v1.9.16
 	github.com/jmoiron/sqlx v1.3.1 // indirect
-	github.com/labstack/echo/v4 v4.1.17 // indirect
+	github.com/labstack/echo/v4 v4.1.17
 	github.com/mattn/goveralls v0.0.7 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/moby/term v0.0.0-20201216013528-df9cb8a40635 // indirect

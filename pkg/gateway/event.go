@@ -22,7 +22,7 @@ func NewEventRepository(sqlDB *sql.DB) *EventRepository {
 }
 
 func (u EventRepository) Find(id string) (*model.Event, error) {
-	stmt, err := u.sqlDB.Prepare("SELECT * FROM users WHERE id=?;")
+	stmt, err := u.sqlDB.Prepare("SELECT users_tags.tag_id, tags.tag_id, users_tags.created_at, users_tags.updated_at FROM tags JOIN users_tags ON users_tags.tag_id = tags.tag_id WHERE users_tags.events_id = ?;")
 	if err != nil {
 		return nil, err
 	}
@@ -34,32 +34,53 @@ func (u EventRepository) Find(id string) (*model.Event, error) {
 	}
 	defer rows.Close()
 
-	var user model.User
+	tagsRes := make([]*model.Tag, 0)
 	for rows.Next() {
-		if err := rows.Scan(&user.ID, &user.Mail); err != nil {
+		var tag model.Tag
+		if err := rows.Scan(&tag.ID, &tag.Name, &tag.CreatedAt, &tag.UpdatedAt); err != nil {
+			return nil, err
+		}
+		tagsRes = append(tagsRes, &tag)
+	}
+
+	stmt1, err := u.sqlDB.Prepare("SELECT * FROM events where events_id = ?")
+	if err != nil {
+		return nil, err
+	}
+	defer stmt1.Close()
+
+	rows1, err := stmt1.Query(id)
+	if err != nil {
+		return nil, err
+	}
+	defer rows1.Close()
+
+	var event model.Event
+	for rows1.Next() {
+		if err := rows1.Scan(&event.ID, &event.DeadLine, &event.PostedUser, &event.Description, &event.CreatedAt, &event.UpdatedAt); err != nil {
 			return nil, err
 		}
 	}
-
-	return &user, nil
+	event.Tag = tagsRes
+	return &event, nil
 }
 
-func (u EventRepository) FindAll() (*[]*model.Event, error) {
+func (u EventRepository) FindAll() ([]*model.Event, error) {
 	rows, err := u.sqlDB.Query("SELECT * FROM users")
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 
-	res := make([]*model.User, 0)
+	res := make([]*model.Event, 0)
 	for rows.Next() {
-		var user model.User
+		var user model.Event
 		if err := rows.Scan(&user.ID, &user.Mail); err != nil {
 			return nil, err
 		}
 		res = append(res, &user)
 	}
-	return &res, nil
+	return res, nil
 }
 
 func (u EventRepository) Save(id string) error {
@@ -84,7 +105,7 @@ func (u EventRepository) Save(id string) error {
 }
 
 func (u EventRepository) Delete(id string) error {
-	stmt, err := u.sqlDB.Prepare("DELETE FROM users WHERE id + ?;")
+	stmt, err := u.sqlDB.Prepare("DELETE FROM users WHERE id = ?;")
 	if err != nil {
 		return err
 	}

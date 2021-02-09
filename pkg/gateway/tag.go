@@ -45,7 +45,7 @@ func (u TagRepository) Find(id string) (*model.Tag, error) {
 	return &tag, nil
 }
 
-func (u TagRepository) FindAll() (*[]*model.Tag, error) {
+func (u TagRepository) FindAll() ([]*model.Tag, error) {
 	rows, err := u.sqlDB.Query("SELECT * FROM tags")
 	if err != nil {
 		return nil, err
