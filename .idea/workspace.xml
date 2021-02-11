@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="df570429-8fb1-43b1-ba7b-33f05c954df1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/domain/mock_repository/mock_user_repository.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/domain/repository/user_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/domain/repository/user_repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gateway/database/mysql_conn.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gateway/database/mysql_conn.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gateway/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gateway/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/server/handler/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/handler/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/server/handler/user_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/handler/user_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/usecase/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/usecase/user.go" afterDir="false" />
-    </list>
+    <list default="true" id="df570429-8fb1-43b1-ba7b-33f05c954df1" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
