@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`events` (
   `created_at` DATETIME NOT NULL COMMENT '生成日',
   `updated_at` DATETIME NOT NULL COMMENT '更新日',
   PRIMARY KEY (`event_id`),
-  INDEX `posted_user_id_fk_idx` (`posted_user_id` ASC) VISIBLE,
+  INDEX `posted_user_id_fk_idx` (`posted_user_id` ASC) ,
   CONSTRAINT `posted_user_id_fk`
     FOREIGN KEY (`posted_user_id`)
     REFERENCES `mydb`.`users` (`user_id`)
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`users_tags` (
   `created_at` DATETIME(6) NOT NULL,
   `updated_at` DATETIME(6) NOT NULL,
   PRIMARY KEY (`event_id`, `tag_id`),
-  INDEX `tag_id_fk_idx` (`tag_id` ASC) VISIBLE,
+  INDEX `tag_id_fk_idx` (`tag_id` ASC) ,
   CONSTRAINT `event_id_fk`
     FOREIGN KEY (`event_id`)
     REFERENCES `mydb`.`events` (`event_id`)
