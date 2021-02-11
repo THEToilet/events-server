@@ -1,8 +1,9 @@
 package usecase
 
 import (
-	"fmt"
 	"github.com/THEToilet/events-server/pkg/domain/repository"
+	"github.com/THEToilet/events-server/pkg/log"
+	"go.uber.org/zap"
 )
 
 type AuthUseCase struct {
@@ -17,9 +18,11 @@ func NewAuthUseCase(sessionRepository repository.SessionRepository) *AuthUseCase
 
 // GetUserIDFromSession はセッションIDから対応するユーザIDを返します。
 func (u *AuthUseCase) GetUserIDFromSession(sessionID string) (string, error) {
+	logger := log.New()
 	userID, err := u.sessionRepository.Find(sessionID)
 	if err != nil {
-		return "", fmt.Errorf("get user from session sessionID=%s: %w", sessionID, err)
+		logger.Error("get user from session sessionID="+ sessionID, zap.Error(err))
+		return "", err
 	}
 	return userID, nil
 }

@@ -3,6 +3,7 @@ package server
 import (
 	"errors"
 	"github.com/THEToilet/events-server/pkg/domain/mock_repository"
+	"github.com/THEToilet/events-server/pkg/domain/service"
 	"github.com/THEToilet/events-server/pkg/usecase"
 	"github.com/golang/mock/gomock"
 	"github.com/labstack/echo/v4"
@@ -42,9 +43,18 @@ func TestAuthMiddleware_Authenticate(t *testing.T) {
 			prepareSessionRepository: func(r *mock_repository.MockSessionRepository) {
 				r.EXPECT().Find("sessionID").Return("11111", nil)
 			},
-			next:     nil,
-			wantErr:  true,
-			wantCode: http.StatusUnauthorized,
+			next: func(c echo.Context) error {
+				userID, ok := service.GetUserIDFromContext(c.Request().Context())
+				if !ok {
+					t.Errorf("AuthMiddleware.Authenticate() userID not found in context")
+				}
+				if userID != "11111" {
+					t.Errorf("AuthMiddleware.Authenticate() userID %s, but want %s", userID, "userID")
+				}
+				return nil
+			},
+			wantErr: false,
+			wantCode: http.StatusOK,
 		},
 		{
 			name: "DBからセッションの取得に失敗すると401",
