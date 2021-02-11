@@ -4,14 +4,16 @@ import "github.com/google/uuid"
 
 //User ログイン済みのユーザを表します
 type User struct {
-	ID   string
-	Mail string
+	UserID       string
+	UserMail     string
+	UserPassword string
 }
 
 //NewUser 新しいUserを生成してポインタを返します
-func NewUser(userMail string) *User {
+func NewUser(userMail string, userPassword string) *User {
 	return &User{
-		ID:   uuid.New().String(),
-		Mail: userMail,
+		UserID:   uuid.New().String(),
+		UserMail: userMail,
+		UserPassword: userPassword,
 	}
 }

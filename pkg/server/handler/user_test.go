@@ -33,8 +33,8 @@ func TestUserHandler_GetUser(t *testing.T) {
 			userID: "userID",
 			prepareMockUserRepo: func(repo *mock_repository.MockUserRepository) {
 				repo.EXPECT().Find("userID").Return(&model.User{
-					ID:   "userID",
-					Mail: "test@mail.com",
+					UserID:   "userID",
+					UserMail: "test@mail.com",
 				}, nil)
 			},
 			want: &userResponse{

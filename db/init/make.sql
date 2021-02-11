@@ -65,11 +65,12 @@ ENGINE = InnoDB;
 -- Table `mydb`.`users_tags`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`users_tags` (
+  `user_tag_id` VARCHAR(128) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_bin' NOT NULL,
   `event_id` VARCHAR(128) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_bin' NOT NULL,
   `tag_id` VARCHAR(45) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_bin' NOT NULL,
   `created_at` DATETIME(6) NOT NULL,
   `updated_at` DATETIME(6) NOT NULL,
-  PRIMARY KEY (`event_id`, `tag_id`),
+  PRIMARY KEY (`event_id`, `tag_id`, `user_tag_id`),
   INDEX `tag_id_fk_idx` (`tag_id` ASC) ,
   CONSTRAINT `event_id_fk`
     FOREIGN KEY (`event_id`)

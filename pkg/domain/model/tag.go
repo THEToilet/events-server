@@ -7,8 +7,8 @@ import (
 
 //Tag イベントに付随しているイベントの属性を説明するためのタグです
 type Tag struct {
-	ID        string
-	Name      string
+	TagID     string
+	TagName   string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
@@ -16,8 +16,8 @@ type Tag struct {
 //NewTag 新しいTagを生成してポインタを返します
 func NewTag(name string) *Tag {
 	return &Tag{
-		ID:        uuid.New().String(),
-		Name:      name,
+		TagID:     uuid.New().String(),
+		TagName:   name,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}

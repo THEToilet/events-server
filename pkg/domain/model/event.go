@@ -7,26 +7,24 @@ import (
 
 //Event 通知をするイベント情報を表します。
 type Event struct {
-	ID          string
+	EventID     string
 	PostedUser  string
 	EventURL    string
 	DeadLine    time.Time
 	Description string
-	Tag         []*Tag
 	CreatedAt   time.Time
-	UpdatedAt    time.Time
+	UpdatedAt   time.Time
 }
 
 //NewEvent 新しいイベントを生成してポインタを返します
-func NewEvent(postedUser string, eventURL string, deadLine time.Time, description string, tag []*Tag) *Event {
+func NewEvent(postedUser string, eventURL string, deadLine time.Time, description string) *Event {
 	return &Event{
-		ID: uuid.New().String(),
-		PostedUser: postedUser,
-		EventURL: eventURL,
-		DeadLine: deadLine,
+		EventID:     uuid.New().String(),
+		PostedUser:  postedUser,
+		EventURL:    eventURL,
+		DeadLine:    deadLine,
 		Description: description,
-		Tag: tag,
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
 	}
 }

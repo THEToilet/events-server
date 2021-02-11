@@ -35,20 +35,20 @@ func TestTagHandler_GetTag(t *testing.T) {
 			prepareMockTagRepo: func(repo *mock_repository.MockTagRepository) {
 				repo.EXPECT().FindAll().Return([]*model.Tag{
 					{
-						ID:        "100",
-						Name:      "tag",
+						TagID:     "100",
+						TagName:   "tag",
 						CreatedAt: time.Date(2020, 12, 31, 23, 59, 59, 0, time.Local),
 						UpdatedAt: time.Date(2020, 12, 31, 23, 59, 59, 0, time.Local),
 					},
 					{
-						ID:        "101",
-						Name:      "tag1",
+						TagID:     "101",
+						TagName:   "tag1",
 						CreatedAt: time.Date(2020, 12, 31, 23, 59, 59, 0, time.Local),
 						UpdatedAt: time.Date(2020, 12, 31, 23, 59, 59, 0, time.Local),
 					},
 					{
-						ID:        "102",
-						Name:      "tag2",
+						TagID:     "102",
+						TagName:   "tag2",
 						CreatedAt: time.Date(2020, 12, 31, 23, 59, 59, 0, time.Local),
 						UpdatedAt: time.Date(2020, 12, 31, 23, 59, 59, 0, time.Local),
 					},
@@ -149,8 +149,8 @@ func TestTagHandler_PostTag(t *testing.T) {
 			userID: "userID",
 			prepareMockTagRepo: func(repo *mock_repository.MockTagRepository) {
 				repo.EXPECT().Save("tag1").Return(&model.Tag{
-					ID:        "100",
-					Name:      "tag1",
+					TagID:     "100",
+					TagName:   "tag1",
 					CreatedAt: time.Date(2020, 12, 31, 23, 59, 59, 0, time.Local),
 					UpdatedAt: time.Date(2020, 12, 31, 23, 59, 59, 0, time.Local),
 				}, nil)
