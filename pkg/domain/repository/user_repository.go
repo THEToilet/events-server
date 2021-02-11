@@ -6,7 +6,7 @@ import (
 
 type UserRepository interface {
 	Find(id string) (*model.User, error)
-	FindAll() (*[]*model.User, error)
+	FindAll() ([]*model.User, error)
 	Save(id string, mail string) error
 	Delete(id string) error
 }

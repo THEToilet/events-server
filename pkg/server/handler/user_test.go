@@ -5,6 +5,8 @@ import (
 	"errors"
 	"github.com/THEToilet/events-server/pkg/domain/mock_repository"
 	"github.com/THEToilet/events-server/pkg/domain/model"
+	"github.com/THEToilet/events-server/pkg/domain/service"
+	"github.com/THEToilet/events-server/pkg/log"
 	"github.com/THEToilet/events-server/pkg/usecase"
 	"github.com/golang/mock/gomock"
 	"github.com/google/go-cmp/cmp"
@@ -15,7 +17,8 @@ import (
 )
 
 func TestUserHandler_GetUser(t *testing.T) {
-	t.Parallel()
+	//t.Parallel()
+	logger := log.New()
 
 	tests := []struct {
 		name                string
@@ -44,7 +47,7 @@ func TestUserHandler_GetUser(t *testing.T) {
 			name:   "DBからユーザの取得に失敗したときはInternalServerError",
 			userID: "userID",
 			prepareMockUserRepo: func(repo *mock_repository.MockUserRepository) {
-				repo.EXPECT().Find("userID").Return(nil, errors.New("unknown error"))
+				repo.EXPECT().Find("userID").Return(nil, errors.New("WOO! error"))
 			},
 			want:     nil,
 			wantErr:  true,
@@ -58,7 +61,11 @@ func TestUserHandler_GetUser(t *testing.T) {
 			req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 			rec := httptest.NewRecorder()
 			c := e.NewContext(req, rec)
-			//c = setToContext(c, tt.userID, nil)
+			ctx := c.Request().Context()
+			ctx = service.SetUserIDToContext(ctx, tt.userID)
+			c.SetRequest(c.Request().WithContext(ctx))
+			val, _ := service.GetUserIDFromContext(c.Request().Context())
+			logger.Info(val)
 
 			// モックの準備
 			ctrl := gomock.NewController(t)
@@ -86,7 +93,7 @@ func TestUserHandler_GetUser(t *testing.T) {
 					t.Fatal(err)
 				}
 				if !cmp.Equal(got, tt.want) {
-					t.Errorf("GetMe() diff = %v", cmp.Diff(got, tt.want))
+					t.Errorf("GetUser() diff = %v", cmp.Diff(got, tt.want))
 				}
 			}
 		})

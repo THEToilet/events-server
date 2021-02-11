@@ -34,6 +34,7 @@ func main() {
 
 	s := server.NewServer(userUseCase, eventUseCase, tagUseCase, authUseCase)
 
-	s.Start(config.Port())
+	s.Start("")//config.Port())
+	logger.Info("Port: " + config.Port())
 	logger.Info("server running......")
 }

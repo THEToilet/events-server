@@ -44,7 +44,7 @@ func (u UserRepository) Find(id string) (*model.User, error) {
 	return &user, nil
 }
 
-func (u UserRepository) FindAll() (*[]*model.User, error) {
+func (u UserRepository) FindAll() ([]*model.User, error) {
 	rows, err := u.sqlDB.Query("SELECT * FROM users")
 	if err != nil {
 		return nil, err
@@ -59,7 +59,7 @@ func (u UserRepository) FindAll() (*[]*model.User, error) {
 		}
 		res = append(res, &user)
 	}
-	return &res, nil
+	return res, nil
 }
 
 func (u UserRepository) Save(id string, mail string) error {
