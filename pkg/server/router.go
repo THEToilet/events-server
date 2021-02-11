@@ -35,7 +35,7 @@ func NewServer(userUseCase *usecase.UserUseCase, eventUseCase *usecase.EventUseC
 	events.DELETE("/:id", eventHandler.DeleteEvent)
 
 	tags := events.Group("/tags")
-	tags.GET("", tagHandler.GetTagList)
+	tags.GET("", tagHandler.GetTag)
 	tags.POST("", tagHandler.PostTag)
 	return e
 }
