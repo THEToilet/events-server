@@ -37,7 +37,7 @@ func (u TagRepository) Find(id string) (*model.Tag, error) {
 
 	var tag model.Tag
 	for rows.Next() {
-		if err := rows.Scan(&tag.ID, &tag.Name); err != nil {
+		if err := rows.Scan(&tag.TagID, &tag.TagName); err != nil {
 			return nil, err
 		}
 	}
@@ -55,7 +55,7 @@ func (u TagRepository) FindAll() ([]*model.Tag, error) {
 	res := make([]*model.Tag, 0)
 	for rows.Next() {
 		var tag model.Tag
-		if err := rows.Scan(&tag.ID, &tag.Name); err != nil {
+		if err := rows.Scan(&tag.TagID, &tag.TagName); err != nil {
 			return nil, err
 		}
 		res = append(res, &tag)
@@ -71,12 +71,12 @@ func (u TagRepository) Save(name string) (*model.Tag, error) {
 	defer stmt.Close()
 
 	var tag model.Tag
-	tag.ID = uuid.New().String()
-	tag.Name = name
+	tag.TagID = uuid.New().String()
+	tag.TagName = name
 	tag.UpdatedAt = time.Now()
 	tag.CreatedAt = time.Now()
 
-	_, err = stmt.Exec(tag.ID, tag.Name, tag.CreatedAt, tag.UpdatedAt)
+	_, err = stmt.Exec(tag.TagID, tag.TagName, tag.CreatedAt, tag.UpdatedAt)
 	if err != nil {
 		return nil, err
 	}

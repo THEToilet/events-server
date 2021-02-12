@@ -37,7 +37,7 @@ func (u EventRepository) Find(id string) (*model.Event, error) {
 	tagsRes := make([]*model.Tag, 0)
 	for rows.Next() {
 		var tag model.Tag
-		if err := rows.Scan(&tag.ID, &tag.Name, &tag.CreatedAt, &tag.UpdatedAt); err != nil {
+		if err := rows.Scan(&tag.TagID, &tag.TagName, &tag.CreatedAt, &tag.UpdatedAt); err != nil {
 			return nil, err
 		}
 		tagsRes = append(tagsRes, &tag)
@@ -57,11 +57,11 @@ func (u EventRepository) Find(id string) (*model.Event, error) {
 
 	var event model.Event
 	for rows1.Next() {
-		if err := rows1.Scan(&event.ID, &event.DeadLine, &event.PostedUser, &event.Description, &event.CreatedAt, &event.UpdatedAt); err != nil {
+		if err := rows1.Scan(&event.EventID, &event.DeadLine, &event.PostedUser, &event.Description, &event.CreatedAt, &event.UpdatedAt); err != nil {
 			return nil, err
 		}
 	}
-	event.Tag = tagsRes
+	//event.Tag = tagsRes
 	return &event, nil
 }
 
@@ -74,11 +74,11 @@ func (u EventRepository) FindAll() ([]*model.Event, error) {
 
 	res := make([]*model.Event, 0)
 	for rows.Next() {
-		var user model.Event
-		if err := rows.Scan(&user.ID); err != nil {
+		var event model.Event
+		if err := rows.Scan(&event.EventID); err != nil {
 			return nil, err
 		}
-		res = append(res, &user)
+		res = append(res, &event)
 	}
 	return res, nil
 }
