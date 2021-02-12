@@ -4,23 +4,23 @@ import (
 	"database/sql"
 	"github.com/THEToilet/events-server/pkg/domain/model"
 	"github.com/THEToilet/events-server/pkg/domain/repository"
+	"github.com/google/uuid"
+	"time"
 )
 
-var _ repository.TagRepository = &TagRepository{}
+var _ repository.UserTagRepository = &UserTagRepository{}
 
-// UserRepository は repository.TagRepository を満たす構造体です
-type TagRepository struct {
+type UserTagRepository struct {
 	sqlDB *sql.DB
 }
 
-// NewUserRepository はUserRepositoryのポインタを生成する関数です
-func NewTagRepository(sqlDB *sql.DB) *TagRepository {
-	return &TagRepository{
+func NewUserTagRepository(sqlDB *sql.DB) *UserTagRepository {
+	return &UserTagRepository{
 		sqlDB: sqlDB,
 	}
 }
 
-func (u TagRepository) Find(id string) (*model.Tag, error) {
+func (u UserTagRepository) Find(id string) (*model.UserTag, error) {
 	stmt, err := u.sqlDB.Prepare("SELECT * FROM tags WHERE id=?;")
 	if err != nil {
 		return nil, err
@@ -33,9 +33,9 @@ func (u TagRepository) Find(id string) (*model.Tag, error) {
 	}
 	defer rows.Close()
 
-	var tag model.Tag
+	var tag model.UserTag
 	for rows.Next() {
-		if err := rows.Scan(&tag.TagID, &tag.TagName); err != nil {
+		if err := rows.Scan(&tag.TagID); err != nil {
 			return nil, err
 		}
 	}
@@ -43,17 +43,17 @@ func (u TagRepository) Find(id string) (*model.Tag, error) {
 	return &tag, nil
 }
 
-func (u TagRepository) FindAll() ([]*model.Tag, error) {
+func (u UserTagRepository) FindAll() ([]*model.UserTag, error) {
 	rows, err := u.sqlDB.Query("SELECT * FROM tags")
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 
-	res := make([]*model.Tag, 0)
+	res := make([]*model.UserTag, 0)
 	for rows.Next() {
-		var tag model.Tag
-		if err := rows.Scan(&tag.TagID, &tag.TagName); err != nil {
+		var tag model.UserTag
+		if err := rows.Scan(&tag.TagID); err != nil {
 			return nil, err
 		}
 		res = append(res, &tag)
@@ -61,21 +61,26 @@ func (u TagRepository) FindAll() ([]*model.Tag, error) {
 	return res, nil
 }
 
-func (u TagRepository) Save(tag model.Tag) error {
+func (u UserTagRepository) Save(name string) (*model.UserTag, error) {
 	stmt, err := u.sqlDB.Prepare("INSERT INTO tags(tag_id, tag_name, created_at, updated_at) values(?, ?, ?, ?);")
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(tag.TagID, tag.TagName, tag.CreatedAt, tag.UpdatedAt)
+	var tag model.UserTag
+	tag.TagID = uuid.New().String()
+	tag.UpdatedAt = time.Now()
+	tag.CreatedAt = time.Now()
+
+	_, err = stmt.Exec(tag.TagID, tag.CreatedAt, tag.UpdatedAt)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return err
+	return &tag, err
 }
 
-func (u TagRepository) Delete(id string) error {
+func (u UserTagRepository) Delete(id string) error {
 	stmt, err := u.sqlDB.Prepare("DELETE FROM tags WHERE id = ?;")
 	if err != nil {
 		return err
@@ -86,5 +91,5 @@ func (u TagRepository) Delete(id string) error {
 		return err
 	}
 
-	return nil
+	return err
 }

@@ -55,7 +55,6 @@ func TestSessionRepository_Find(t *testing.T) {
 	}
 }
 
-
 func TestSessionRepository_Save(t *testing.T) {
 	// Prepare
 	redisConn := database.NewRedis()
