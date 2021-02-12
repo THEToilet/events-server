@@ -19,7 +19,7 @@ func main() {
 	}
 	redisConn, err := database.NewRedis()
 	if err != nil {
-		logger.Fatal("mysql do not connect", zap.Error(err))
+		logger.Fatal("redis do not connect", zap.Error(err))
 	}
 
 	userRepository := gateway.NewUserRepository(sqlDB)
