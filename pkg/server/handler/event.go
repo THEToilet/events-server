@@ -28,12 +28,11 @@ func (h *EventHandler) GetEvent(c echo.Context) error {
 	res := make([]eventResponse, len(events))
 	for i, v := range events {
 		res[i] = eventResponse{
-			ID:          v.ID,
+			ID:          v.EventID,
 			PostedUser:  v.PostedUser,
 			EventURL:    v.EventURL,
 			DeadLine:    v.DeadLine,
 			Description: v.Description,
-			Tag:         v.Tag,
 			CreatedAt:   v.UpdatedAt,
 			UpdatedAt:   v.UpdatedAt,
 		}
@@ -61,12 +60,11 @@ func (h *EventHandler) PutEvent(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 	return c.JSON(http.StatusOK, &eventResponse{
-		ID:          event.ID,
+		ID:          event.EventID,
 		PostedUser:  event.PostedUser,
 		EventURL:    event.EventURL,
 		DeadLine:    event.DeadLine,
 		Description: event.Description,
-		Tag:         event.Tag,
 		CreatedAt:   event.CreatedAt,
 		UpdatedAt:   event.UpdatedAt,
 	},

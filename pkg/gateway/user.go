@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/THEToilet/events-server/pkg/domain/model"
 	"github.com/THEToilet/events-server/pkg/domain/repository"
+	"github.com/go-sql-driver/mysql"
 )
 
 var _ repository.UserRepository = &UserRepository{}
@@ -51,45 +52,43 @@ func (u UserRepository) FindAll() ([]*model.User, error) {
 	res := make([]*model.User, 0)
 	for rows.Next() {
 		var user model.User
-		if err := rows.Scan(&user.UserID, &user.UserMail); err != nil {
-			return nil, err
+		if err := rows.Scan(&user.UserID, &user.UserMail, &user.UserPassword); err != nil {
+			if errors.Is(err, sql.ErrNoRows) {
+				return nil, fmt.Errorf("select user: %w", model.ErrUserNotFound)
+			}
+			return res, fmt.Errorf("select user: %w", err)
 		}
 		res = append(res, &user)
 	}
 	return res, nil
 }
 
-func (u UserRepository) Save(id string, mail string) error {
-	stmt, err := u.sqlDB.Prepare("INSERT INTO users(user_id, user_mail) values(?, ?);")
+func (u UserRepository) Save(user model.User) error {
+	stmt, err := u.sqlDB.Prepare("INSERT INTO users(user_id, user_mail, user_password) values(?, ?, ?);")
 	if err != nil {
 		return err
 	}
 	defer stmt.Close()
 
-	insertResult, err := stmt.Exec(id, mail)
+	_, err = stmt.Exec(user.UserID, user.UserMail, user.UserPassword)
 	if err != nil {
-		return err
+		if mysqlErr, ok := err.(*mysql.MySQLError); ok && mysqlErr.Number == 1062 {
+			return fmt.Errorf("save user: %w", model.ErrUserAlreadyExisted)
+		}
+		return fmt.Errorf("save user: %w", err)
 	}
-
-	userID, err := insertResult.LastInsertId()
-	if err != nil {
-		return err
-	}
-	fmt.Println(userID)
-
-	return nil
+	return err
 }
 
 func (u UserRepository) Delete(id string) error {
-	stmt, err := u.sqlDB.Prepare("DELETE FROM users WHERE id = ?;")
+	stmt, err := u.sqlDB.Prepare("DELETE FROM users WHERE user_id = ?;")
 	if err != nil {
 		return err
 	}
 	defer stmt.Close()
 
 	if _, err := stmt.Exec(id); err != nil {
-		return err
+		return fmt.Errorf("delete: %w", err)
 	}
-
-	return nil
+	return err
 }

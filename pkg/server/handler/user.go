@@ -31,7 +31,7 @@ func (h *UserHandler) GetUser(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, &userResponse{
-		Mail: user.Mail,
+		Mail: user.UserMail,
 	})
 }
 

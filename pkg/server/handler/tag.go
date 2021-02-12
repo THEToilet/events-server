@@ -30,8 +30,8 @@ func (h *TagHandler) GetTag(c echo.Context) error {
 	res := make([]tagResponse, len(tags))
 	for i, v := range tags {
 		res[i] = tagResponse{
-			TagId:     v.ID,
-			TagName:   v.Name,
+			TagId:     v.TagID,
+			TagName:   v.TagName,
 			CreatedAt: v.CreatedAt,
 			UpdatedAt: v.UpdatedAt,
 		}
