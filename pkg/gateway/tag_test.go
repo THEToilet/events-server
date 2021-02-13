@@ -35,7 +35,7 @@ func TestTagRepository_Find(t *testing.T) {
 		wantErr error
 	}{
 		{
-			name: "存在するユーザを正しく取得できる",
+			name: "存在するタグを正しく取得できる",
 			id:   "testname",
 			want: &model.Tag{
 				TagID:     "",
@@ -46,7 +46,7 @@ func TestTagRepository_Find(t *testing.T) {
 			wantErr: nil,
 		},
 		{
-			name:    "存在しないUserIDの場合エラー",
+			name:    "存在しないTagIDの場合エラー",
 			id:      "not_found",
 			want:    nil,
 			wantErr: model.ErrUserNotFound,
@@ -201,7 +201,8 @@ func TestTagRepository_Save(t *testing.T) {
 			r := &TagRepository{
 				sqlDB: sqlDB,
 			}
-			_, err := r.Save("")
+			tag := model.NewTag("test")
+			err := r.Save(tag)
 			if !errors.Is(err, tt.wantErr) {
 				t.Errorf("Save() error = %v, wantErr %v", err, tt.wantErr)
 				return

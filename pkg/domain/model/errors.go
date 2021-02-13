@@ -10,4 +10,7 @@ var (
 
 	ErrSessionNotFound = errors.New("session not found")
 	ErrSessionAlreadyExisted = errors.New("session has already existed")
+
+	ErrTagNotFound = errors.New("tag not found")
+	ErrTagAlreadyExisted = errors.New("tag has already existed")
 )

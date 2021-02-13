@@ -5,7 +5,7 @@ import (
 )
 
 type TagRepository interface {
-	Save(tag model.Tag) error
+	Save(tag *model.Tag) error
 	Find(id string) (*model.Tag, error)
 	FindAll() ([]*model.Tag, error)
 	Delete(id string) error
