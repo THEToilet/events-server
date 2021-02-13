@@ -13,4 +13,7 @@ var (
 
 	ErrTagNotFound = errors.New("tag not found")
 	ErrTagAlreadyExisted = errors.New("tag has already existed")
+
+	ErrUserTagNotFound = errors.New("user_tag not found")
+	ErrUserTagAlreadyExisted = errors.New("user_tag has already existed")
 )
