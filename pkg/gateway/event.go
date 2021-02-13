@@ -22,7 +22,7 @@ func NewEventRepository(sqlDB *sql.DB) *EventRepository {
 }
 
 func (u EventRepository) Find(id string) (*model.Event, error) {
-	stmt, err := u.sqlDB.Prepare("SELECT users_tags.tag_id, tags.tag_id, users_tags.created_at, users_tags.updated_at FROM tags JOIN users_tags ON users_tags.tag_id = tags.tag_id WHERE users_tags.events_id = ?;")
+	stmt, err := u.sqlDB.Prepare("SELECT * FROM events where events_id = ?")
 	if err != nil {
 		return nil, err
 	}
@@ -34,30 +34,9 @@ func (u EventRepository) Find(id string) (*model.Event, error) {
 	}
 	defer rows.Close()
 
-	tagsRes := make([]*model.Tag, 0)
-	for rows.Next() {
-		var tag model.Tag
-		if err := rows.Scan(&tag.TagID, &tag.TagName, &tag.CreatedAt, &tag.UpdatedAt); err != nil {
-			return nil, err
-		}
-		tagsRes = append(tagsRes, &tag)
-	}
-
-	stmt1, err := u.sqlDB.Prepare("SELECT * FROM events where events_id = ?")
-	if err != nil {
-		return nil, err
-	}
-	defer stmt1.Close()
-
-	rows1, err := stmt1.Query(id)
-	if err != nil {
-		return nil, err
-	}
-	defer rows1.Close()
-
 	var event model.Event
-	for rows1.Next() {
-		if err := rows1.Scan(&event.EventID, &event.DeadLine, &event.PostedUser, &event.Description, &event.CreatedAt, &event.UpdatedAt); err != nil {
+	for rows.Next() {
+		if err := rows.Scan(&event.EventID, &event.DeadLine, &event.PostedUser, &event.Description, &event.CreatedAt, &event.UpdatedAt); err != nil {
 			return nil, err
 		}
 	}

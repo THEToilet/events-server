@@ -17,8 +17,6 @@ require (
 	github.com/gomodule/redigo v1.8.3
 	github.com/google/go-cmp v0.5.4
 	github.com/google/uuid v1.2.0
-	github.com/hashicorp/golang-lru v0.5.4 // indirect
-	github.com/jinzhu/gorm v1.9.16
 	github.com/jmoiron/sqlx v1.3.1 // indirect
 	github.com/labstack/echo/v4 v4.1.17
 	github.com/mattn/goveralls v0.0.7 // indirect
@@ -31,6 +29,4 @@ require (
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a // indirect
 	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c // indirect
 	golang.org/x/tools v0.1.0 // indirect
-	google.golang.org/genproto v0.0.0-20210204154452-deb828366460 // indirect
-	google.golang.org/grpc v1.35.0 // indirect
 )
