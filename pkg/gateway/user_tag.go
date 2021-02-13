@@ -22,7 +22,7 @@ func NewUserTagRepository(sqlDB *sql.DB) *UserTagRepository {
 }
 
 func (u UserTagRepository) FindAll(eventID string) ([]*model.UserTag, error) {
-	rows, err := u.sqlDB.Query("SELECT * FROM user_tags WHERE event_id = ?", eventID)
+	rows, err := u.sqlDB.Query("SELECT * FROM users_tags WHERE event_id = ?", eventID)
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (u UserTagRepository) FindAll(eventID string) ([]*model.UserTag, error) {
 }
 
 func (u UserTagRepository) Save(tag *model.UserTag) error {
-	stmt, err := u.sqlDB.Prepare("INSERT INTO tags(event_id, tag_id, created_at, updated_at) values(?, ?, ?, ?);")
+	stmt, err := u.sqlDB.Prepare("INSERT INTO users_tags(event_id, tag_id, created_at, updated_at) values(?, ?, ?, ?);")
 	if err != nil {
 		return err
 	}
@@ -59,7 +59,7 @@ func (u UserTagRepository) Save(tag *model.UserTag) error {
 }
 
 func (u UserTagRepository) Delete(eventID string, tagID string) error {
-	stmt, err := u.sqlDB.Prepare("DELETE FROM tags WHERE event_id = ? && tag_id = ?;")
+	stmt, err := u.sqlDB.Prepare("DELETE FROM users_tags WHERE event_id = ? && tag_id = ?;")
 	if err != nil {
 		return err
 	}

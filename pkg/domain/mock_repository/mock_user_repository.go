@@ -64,17 +64,17 @@ func (mr *MockUserRepositoryMockRecorder) FindAll() *gomock.Call {
 }
 
 // Save mocks base method
-func (m *MockUserRepository) Save(id, mail string) error {
+func (m *MockUserRepository) Save(user model.User) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Save", id, mail)
+	ret := m.ctrl.Call(m, "Save", user)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Save indicates an expected call of Save
-func (mr *MockUserRepositoryMockRecorder) Save(id, mail interface{}) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) Save(user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Save", reflect.TypeOf((*MockUserRepository)(nil).Save), id, mail)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Save", reflect.TypeOf((*MockUserRepository)(nil).Save), user)
 }
 
 // Delete mocks base method
